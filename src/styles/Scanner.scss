@@ -10,10 +10,13 @@
     margin: 20px auto;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    video{
+        width: 100%;
+    }
   }
   
   .video-feed {
-    width: 100%;
+    width: 50%;
     height: auto;
     border-radius: 8px;
   }
