@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Scanner from './components/Scanner';
+import BookInfo from './components/BookInfo';
+import axios from 'axios';
+import './styles/App.scss';
 
-function App() {
+const App = () => {
+  const [book, setBook] = useState(null);
+  const [error, setError] = useState("");
+
+  const handleDetected = (isbn) => {
+    setError("");
+    axios
+      .get(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`)
+      .then((response) => {
+        const data = response.data[`ISBN:${isbn}`];
+        if (data) {
+          setBook(data);
+        } else {
+          setError("Livre non trouvé.");
+        }
+      })
+      .catch(() => {
+        setError("Erreur lors de la récupération des données.");
+      });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: '20px', textAlign: 'center' }}>
+      <h1>Scanner de livres</h1>
+      <Scanner onDetected={handleDetected} />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <BookInfo book={book} />
     </div>
   );
-}
+};
 
 export default App;
