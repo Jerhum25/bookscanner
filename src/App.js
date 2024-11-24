@@ -25,11 +25,17 @@ const App = () => {
     setError("");
     setBook(null); // Réinitialise les données précédentes
     axios
-      .get(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`)
+      .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
       .then((response) => {
-        const data = response.data[`ISBN:${isbn}`];
-        if (data) {
-          setBook(data);
+        const items = response.data.items;
+        if (items && items.length > 0) {
+          const book = items[0].volumeInfo;
+          setBook({
+            title: book.title,
+            authors: book.authors || ["Auteur inconnu"],
+            publisher: book.publisher || "Éditeur inconnu",
+            publishDate: book.publishedDate || "Date inconnue",
+          });
         } else {
           setError("Livre non trouvé.");
         }
@@ -38,7 +44,7 @@ const App = () => {
         setError("Erreur lors de la récupération des données.");
       });
   };
-
+  
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
       <h1>Scanner de livres</h1>
