@@ -1,26 +1,26 @@
 // src/styles/Scanner.scss
 
 .scanner-container {
-    border: 2px dashed #ccc;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 8px;
+  border: 2px dashed #ccc;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  video {
     width: 100%;
-    max-width: 400px;
-    margin: 20px auto;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    video{
-        width: 100%;
-    }
-    canvas{
-        height: 0;
-    }
   }
-  
-  .video-feed {
-    width: 50%;
-    height: auto;
-    border-radius: 8px;
+  canvas {
+    height: 0;
   }
-  
+}
+
+.video-feed {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

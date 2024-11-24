@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/BookInfo.scss";
 const BookInfo = ({ book }) => {
   if (!book) return <p>Aucun livre scanné pour le moment.</p>;
+console.log(book.cover.small);
 
   return (
     <div className="book-info">
@@ -16,6 +17,7 @@ const BookInfo = ({ book }) => {
       <p>
         <strong>Publié en:</strong> {book.publish_date}
       </p>
+      <img src={book.cover.medium} alt="book" />
     </div>
   );
 };
